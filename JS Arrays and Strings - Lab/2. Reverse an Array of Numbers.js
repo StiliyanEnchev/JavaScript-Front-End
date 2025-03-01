@@ -1,5 +1,5 @@
 function solve(num, masiv) {
-    let new_masiv = masiv.splice(0, num)
+    let new_masiv = masiv.slice(0, num)
     console.log(...new_masiv.reverse())
 }
 
