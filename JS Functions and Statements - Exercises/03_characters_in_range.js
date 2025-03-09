@@ -3,8 +3,7 @@ function asciTable (firstSym, SecondSym) {
     let index2 = SecondSym.charCodeAt();
     let result = [];
     if (index2 < index1) {
-        index1 = SecondSym.charCodeAt();
-        index2 = firstSym.charCodeAt();
+        [index1, index2] = [index2, index1];
         }
         
     for (index1; index1 < index2 - 1; index1 ++) {
