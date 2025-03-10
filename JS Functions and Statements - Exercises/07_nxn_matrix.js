@@ -3,7 +3,7 @@ function matrixMaker(n) {
     result = []
     for (let i = 0; i < allNumbers; i++) {
         
-        if (result.length % n == 0){
+        if (i % n == 0){
             result.push(`\n${n}`)
 
         } else {
@@ -15,4 +15,4 @@ function matrixMaker(n) {
     console.log(result.join(' '))
 }
 
-matrixMaker(5)
+matrixMaker(10)
