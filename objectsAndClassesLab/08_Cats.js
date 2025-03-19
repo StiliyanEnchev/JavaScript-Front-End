@@ -12,10 +12,6 @@ function solve(arr) {
         }
     }
 
-
-
-
-
     for (cat of arr) {
         let catData = cat.split(' ');
         let [name, age] = [catData[0], catData[1]]
