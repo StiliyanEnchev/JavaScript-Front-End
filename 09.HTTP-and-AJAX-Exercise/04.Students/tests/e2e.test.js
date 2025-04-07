@@ -135,29 +135,25 @@ describe('E2E tests', function () {
     });
 
     it('Check grade', async () => {
-        const data = mockData.list[0];
-        await page.goto(host);
-      
-        const { post } = await handle(endpoints.catalog);
-        const { onRequest } = post();
-      
-        await page.waitForSelector('.inputs', { timeout: interval });
-      
-        await page.fill('input[name="firstName"]', data.firstName + '1');
-        await page.fill('input[name="lastName"]', data.lastName + '1');
-        await page.fill('input[name="facultyNumber"]', data.facultyNumber + '1');
-        await page.fill('input[name="grade"]', data.grade + '1');
-      
-        const [request] = await Promise.all([
-          onRequest(),
-          page.click('#submit', { timeout: interval }),
-        ]);
-      
-        const postData = JSON.parse(request.postData());
-      
-        expect(Number(postData.grade)).to.equal(Number(data.grade + '1'));
-      });
-      
+      const data = mockData.list[0];
+      await page.goto(host);
+
+      const { post } = await handle(endpoints.catalog);
+      const { onRequest } = post();
+
+      await page.waitForSelector('.inputs', { timeout: interval });
+
+      await page.fill('input[name="firstName"]', data.firstName + '1');
+      await page.fill('input[name="lastName"]', data.lastName + '1');
+      await page.fill('input[name="facultyNumber"]', data.facultyNumber + '1');
+      await page.fill('input[name="grade"]', data.grade + '1');
+
+      const [request] = await Promise.all([onRequest(), page.click('#submit', { timeout: interval })]);
+
+      const postData = JSON.parse(request.postData());
+
+      expect(postData.grade).to.equal(data.grade + '1');
+    });
   });
 });
 

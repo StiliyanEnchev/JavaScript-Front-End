@@ -135,14 +135,6 @@ describe('E2E tests', function () {
 async function setupContext(context) {
   // Catalog and Details
   await handleContext(context, endpoints.blog, { get: mockData.blog });
-
-  await handleContext(
-    context,
-    '/jsonstore/blog/posts/-MSbypx-13fHPDyzNRtf',
-    { get: mockData.blog["-MSbypx-13fHPDyzNRtf"] }
-  );
-
-
   await handleContext(context, endpoints.comments('1001'), {
     get: mockData.comments[0],
   });

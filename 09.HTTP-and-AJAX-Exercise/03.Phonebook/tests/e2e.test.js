@@ -54,45 +54,39 @@ describe('E2E tests', function () {
   // Test proper
   describe('Messenger Info', () => {
     it('Load Message', async () => {
-        const data = mockData.list;
-        const { get } = await handle(endpoints.catalog);
-        get(data);
-      
-        await page.goto(host);
-        await page.waitForSelector('#btnLoad', { timeout: interval });
-      
-        await page.click('#btnLoad', { timeout: interval });
-      
-        await page.waitForSelector('#phonebook li', { timeout: interval });
-      
-        const phone = await page.$$eval(`#phonebook li`, (t) =>
-          t.map((s) => s.textContent)
-        );
-      
-        expect(phone[0]).to.equal(`${data[0].person}: ${data[0].phone}Delete`);
-        expect(phone[1]).to.equal(`${data[1].person}: ${data[1].phone}Delete`);
-      });
-      
+      const data = mockData.list;
+      const { get } = await handle(endpoints.catalog);
+      get(data);
 
-      it('Length Message', async () => {
-        const data = mockData.list;
-        const { get } = await handle(endpoints.catalog);
-        get(data);
-      
-        await page.goto(host);
-        await page.waitForSelector('#btnLoad', { timeout: interval });
-      
-        await page.click('#btnLoad', { timeout: interval });
-      
-        await page.waitForSelector('#phonebook li', { timeout: interval });
-      
-        const phone = await page.$$eval(`#phonebook li`, (t) =>
-          t.map((s) => s.textContent)
-        );
-      
-        expect(phone.length).to.equal(data.length);
-      });
+      await page.goto(host);
+      await page.waitForSelector('#btnLoad' , { timeout: interval });
+
+      await page.click('#btnLoad', { timeout: interval });
+
+      const phone = await page.$$eval(`#phonebook li`, (t) =>
+        t.map((s) => s.textContent)
+      );
+
+      expect(phone[0]).to.equal(`${data[0].person}: ${data[0].phone}Delete`);
+      expect(phone[1]).to.equal(`${data[1].person}: ${data[1].phone}Delete`);
+    });
+
+    it('Length Message', async () => {
+      const data = mockData.list;
+      const { get } = await handle(endpoints.catalog);
+      get(data);
+
+      await page.goto(host);
+      await page.waitForSelector('#btnLoad' , { timeout: interval });
+
+      await page.click('#btnLoad', { timeout: interval });
+
+      const phone = await page.$$eval(`#phonebook li`, (t) =>
+        t.map((s) => s.textContent)
+      );
     
+      expect(phone.length).to.equal(data.length);
+    });
 
     it('Send Message API call', async () => {
       const data = mockData.list[0];
