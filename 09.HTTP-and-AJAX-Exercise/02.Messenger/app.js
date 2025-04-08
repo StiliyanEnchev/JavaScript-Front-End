@@ -34,7 +34,7 @@ function attachEvents() {
             let data = await response.json();
             let messages = Object.values(data)
                 .map(msg => `${msg.author}: ${msg.content}`)
-                .join('\n');
+                .join('\n'); 
             messagesTextarea.value = messages;
 
 
