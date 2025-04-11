@@ -14,15 +14,15 @@ function solve(input) {
         }
 
         crew[name] = {
-            section: section,
-            skills: skills
+            section,
+            skills
         };
     }
 
     for (let i = numberOfAstronauts + 1; i < input.length; i++) {
         let commandLine = input[i];
 
-        if (commandLine === "End") {
+        if (commandLine == "End") {
             break;
         }
 
@@ -30,22 +30,22 @@ function solve(input) {
         let action = parts[0];
         let name = parts[1];
 
-        if (action === "Perform") {
+        if (action == "Perform") {
             let section = parts[2];
             let skill = parts[3];
 
-            if (crew[name].section === section && crew[name].skills.includes(skill)) {
+            if (crew[name].section == section && crew[name].skills.includes(skill)) {
                 console.log(name + " has successfully performed the skill: " + skill + "!");
             } else {
                 console.log(name + " cannot perform the skill: " + skill + ".");
             }
 
-        } else if (action === "Transfer") {
+        } else if (action == "Transfer") {
             let newSection = parts[2];
             crew[name].section = newSection;
             console.log(name + " has been transferred to: " + newSection);
 
-        } else if (action === "Learn Skill") {
+        } else if (action == "Learn Skill") {
             let newSkill = parts[2];
 
             if (crew[name].skills.includes(newSkill)) {
