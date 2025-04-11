@@ -10,85 +10,49 @@ function solve(input) {
         };
     }
 
-    while (input.length > 0) {
-        let line = input.shift();
-        let parts = line.split(' # ');
-        let action = parts.shift();
-
-        if (action == 'End') {
-            break;
-        }
-
-        if (action == 'Mix') {
-            handleMix(parts, chemicals);
-        }
-
-        else if (action == 'Replenish') {
-            handleReplenish(parts, chemicals);
-        }
-
-        else if (action == 'Add Formula') {
-            handleAddFormula(parts, chemicals);
-        }
-    }
-
-
-    function handleMix([chem1, chem2, amountStr], chemicals) {
+    function handleMix([chem1, chem2, amountStr]) {
         let amount = Number(amountStr);
-
         if (chemicals[chem1] && chemicals[chem2]) {
             if (chemicals[chem1].quantity >= amount && chemicals[chem2].quantity >= amount) {
                 chemicals[chem1].quantity -= amount;
                 chemicals[chem2].quantity -= amount;
                 console.log(`${chem1} and ${chem2} have been mixed. ${amount} units of each were used.`);
-            }
-
+            } 
             else {
-                if (chemicals[chem1].quantity < amount) {
-                    console.log(`Insufficient quantity of ${chem1} to mix.`);
-                }
-
-                if (chemicals[chem2].quantity < amount) {
-                    console.log(`Insufficient quantity of ${chem2} to mix.`);
-                }
+                console.log(`Insufficient quantity of ${chem1}/${chem2} to mix.`);
             }
         }
     }
 
-    function handleReplenish([name, amountStr], chemicals) {
+    function handleReplenish([name, amountStr]) {
         let amount = Number(amountStr);
-
         if (!chemicals[name]) {
             console.log(`The Chemical ${name} is not available in the lab.`);
-        }
-
+        } 
         else {
             let current = chemicals[name].quantity;
             let added = Math.min(amount, 500 - current);
             chemicals[name].quantity += added;
-
             if (current + amount > 500) {
                 console.log(`${name} quantity increased by ${added} units, reaching maximum capacity of 500 units!`);
-            }
-
+            } 
             else {
                 console.log(`${name} quantity increased by ${amount} units!`);
             }
         }
     }
 
-    function handleAddFormula([name, formula], chemicals) {
+    function handleAddFormula([name, formula]) {
         if (!chemicals[name]) {
             console.log(`The Chemical ${name} is not available in the lab.`);
-        }
-
+        } 
         else {
             chemicals[name].formula = formula;
             console.log(`${name} has been assigned the formula ${formula}.`);
         }
     }
 
-    function printFinalChemicals(chemicals) {
+    function printFinalChemicals() {
         for (let [name, data] of Object.entries(chemicals)) {
             let output = `Chemical: ${name}, Quantity: ${data.quantity}`;
             if (data.formula) {
@@ -98,8 +62,25 @@ function solve(input) {
         }
     }
 
+    while (input.length > 0) {
+        let line = input.shift();
+        let parts = line.split(' # ');
+        let action = parts.shift();
+        if (action == 'End') {
+            break;
+        }
+        if (action == 'Mix') {
+            handleMix(parts);
+        } 
+        else if (action == 'Replenish') {
+            handleReplenish(parts);
+        } 
+        else if (action == 'Add Formula') {
+            handleAddFormula(parts);
+        }
+    }
 
-    printFinalChemicals(chemicals);
+    printFinalChemicals();
 }
 
 
